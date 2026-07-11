@@ -116,6 +116,12 @@ alias ta='tmux attach -t'
 alias tl='tmux ls'
 alias tk='tmux kill-session -t'
 
+alias hn='herdr --session'
+alias ha='herdr session attach'
+alias hl='herdr session list'
+alias hs='herdr session stop'
+alias hk='herdr session delete'
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 

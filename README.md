@@ -34,13 +34,13 @@ what's missing and updates what's already there.
 | CLI tools | `brew bundle --file=Brewfile --upgrade` (see `Brewfile`) |
 | oh-my-zsh + powerlevel10k | official installer / `git pull` on the p10k theme repo |
 | `.zshrc`, `.p10k.zsh`, `.tmux.conf` | symlinked from this repo into `$HOME` |
-| herdr | official installer (self-updating), plus `herdr integration install claude` |
+| herdr | official installer (self-updating), plus `herdr integration install claude`; `config.toml` symlinked into `~/.config/herdr` |
 | tmux plugins (TPM, dracula/tmux) | TPM cloned/pulled, `install_plugins` + `update_plugins all` |
 | Neovim config | cloned/pulled from `VismaSan/nvim`, `lazy.nvim` synced headlessly |
 | .NET SDK + global tools | cross-platform `dotnet-install.sh`, then `dotnet-format`/`csharpier` |
 | Claude Code settings | `settings.json`, `skills/`, `statusline-command.sh`, plugin config symlinked into `~/.claude` |
 | Nerd Font | Homebrew cask on macOS, downloaded + `fc-cache`'d on Linux |
-| Default shell | `chsh` to the Homebrew-installed `zsh` |
+| Default shell | `chsh` to the Homebrew-installed `zsh`, skipped if already on any zsh |
 
 ## The one manual step
 
@@ -83,3 +83,11 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.env.HOME .. "/.dotnet/tools"
   `brew leaves`, but not actually wired into `.zshrc` (powerlevel10k is the
   active prompt). Kept in the Brewfile in case that changes; harmless if not
   used.
+- `~/.config/herdr/{*.log,*.sock,session.json}` — runtime logs, IPC sockets,
+  and workspace/session state, all machine-local. Only `config.toml`
+  (keybindings/theme) is portable config and gets symlinked.
+
+Note: herdr's configured prefix key (`ctrl+s`, in `herdr/config.toml`) is the
+same as tmux's prefix (`set -g prefix C-s` in `tmux/tmux.conf`) — worth
+knowing if you use both at once, since one will shadow the other depending on
+which has focus.

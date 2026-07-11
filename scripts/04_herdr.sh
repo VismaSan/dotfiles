@@ -14,3 +14,5 @@ if have_cmd herdr; then
 else
   die "herdr install failed — herdr not found on PATH after install"
 fi
+
+link "$DOTFILES_DIR/herdr/config.toml" "$HOME/.config/herdr/config.toml"

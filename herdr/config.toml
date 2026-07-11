@@ -1,0 +1,13 @@
+[keys]
+prefix = "ctrl+s"
+settings = "prefix+comma"
+goto = "prefix+s"
+navigate_workspace_up = ["up", "k"]
+navigate_workspace_down = ["down", "j"]
+
+[ui.toast]
+delivery = "herdr"
+
+[theme]
+name = "dracula"
+auto_switch = false
