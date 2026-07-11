@@ -32,5 +32,6 @@
   "effortLevel": "high",
   "theme": "light",
   "skipAutoPermissionPrompt": true,
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "editorMode": "vim"
 }
