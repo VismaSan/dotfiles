@@ -21,10 +21,13 @@ what's missing and updates what's already there.
 
 ## Prerequisites
 
-- **SSH key registered with GitHub** on the new machine, before running
-  `install.sh` — the Neovim config (`git@github.com:VismaSan/nvim.git`) is
-  cloned over SSH.
 - macOS or Linux. (Windows/WSL is untested — treat as Linux at your own risk.)
+
+No SSH key or GitHub auth needed to run `install.sh` — both this repo and
+`VismaSan/nvim` are public, so everything is cloned over plain HTTPS. (If
+either repo is ever made private again, switch the corresponding clone URL
+back to SSH — `git@github.com:VismaSan/nvim.git` in `scripts/07_nvim.sh` —
+and re-add this prerequisite.)
 
 ## What gets set up
 

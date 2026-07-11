@@ -3,7 +3,7 @@ set -euo pipefail
 DOTFILES_DIR="${DOTFILES_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
 source "$DOTFILES_DIR/scripts/lib.sh"
 
-git_clone_or_pull "git@github.com:VismaSan/nvim.git" "$HOME/.config/nvim"
+git_clone_or_pull "https://github.com/VismaSan/nvim.git" "$HOME/.config/nvim"
 
 if have_cmd nvim; then
   log "priming lazy.nvim (install missing + update pinned plugins)"
