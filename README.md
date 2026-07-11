@@ -55,10 +55,8 @@ automatically (see table above); you just need to select it.
 
 ## OS-specific notes
 
-- **Linux:** `postgresql@14` and `mono` may build from source on first run
-  (no bottle for every distro) and can take a while. There's no scripted
-  terminal-emulator install on Linux — iTerm2 (used on macOS) has no Linux
-  equivalent, so use whatever your distro/desktop provides.
+- **Linux:** there's no scripted terminal-emulator install — iTerm2 (used on
+  macOS) has no Linux equivalent, so use whatever your distro/desktop provides.
 - **macOS:** iTerm2 is installed via Homebrew cask (`cask "iterm2"`).
 
 ## Known companion fix (separate repo)
@@ -83,10 +81,14 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.env.HOME .. "/.dotnet/tools"
   upstream repo (hundreds of files, managed by Claude Code itself); rebuilt
   automatically from `settings.json`'s `extraKnownMarketplaces` +
   `enabledPlugins`, so it's never symlinked or committed here.
-- `starship` — installed via Homebrew for parity with the source machine's
-  `brew leaves`, but not actually wired into `.zshrc` (powerlevel10k is the
-  active prompt). Kept in the Brewfile in case that changes; harmless if not
-  used.
+- `go`, `node`, `cloudflared`, `pgpdump`, `postgresql@14`, `starship`,
+  `supabase` — none of these are used by anything else in this repo
+  (powerlevel10k, not starship, is the active prompt; nothing here needs a
+  local Postgres/pgpdump/cloudflared/Go toolchain). Install manually if a
+  given machine needs one. Note: removing `node` means Mason (used by the
+  nvim config) can't install its Node-based LSP servers — `ts_ls`, `eslint`,
+  `jsonls`, `dockerls` — until `node` is available some other way (e.g. via
+  `nvm`, which `.zshrc` already sources).
 - `~/.config/herdr/{*.log,*.sock,session.json}` — runtime logs, IPC sockets,
   and workspace/session state, all machine-local. Only `config.toml`
   (keybindings/theme) is portable config and gets symlinked.

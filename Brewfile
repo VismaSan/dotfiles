@@ -5,19 +5,13 @@ brew "fzf"
 brew "gh"
 brew "git"
 brew "git-lfs"
-brew "go"
 brew "lazygit"
 brew "neovim"
-brew "node"               # gap-fix: missing on source machine, needed by Mason (ts_ls/eslint/jsonls/dockerls)
 brew "p7zip"
 brew "ripgrep"
 brew "tmux"
 brew "zsh"
-brew "cloudflared"
 brew "mkcert"
-brew "pgpdump"
-brew "postgresql@14"
-brew "starship"           # currently unreferenced in .zshrc; kept for parity, see README
 
 if OS.mac?
   brew "mono"
