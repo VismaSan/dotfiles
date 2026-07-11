@@ -7,11 +7,11 @@ brew "git"
 brew "git-lfs"
 brew "lazygit"
 brew "neovim"
+brew "node"               # needed by Mason (ts_ls/eslint/jsonls/dockerls) for nvim
 brew "p7zip"
 brew "ripgrep"
 brew "tmux"
 brew "zsh"
-brew "mkcert"
 
 if OS.mac?
   brew "mono"

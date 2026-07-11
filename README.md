@@ -81,14 +81,14 @@ vim.env.PATH = vim.env.PATH .. ":" .. vim.env.HOME .. "/.dotnet/tools"
   upstream repo (hundreds of files, managed by Claude Code itself); rebuilt
   automatically from `settings.json`'s `extraKnownMarketplaces` +
   `enabledPlugins`, so it's never symlinked or committed here.
-- `go`, `node`, `cloudflared`, `pgpdump`, `postgresql@14`, `starship`,
+- `go`, `cloudflared`, `pgpdump`, `postgresql@14`, `starship`, `mkcert`,
   `supabase` — none of these are used by anything else in this repo
   (powerlevel10k, not starship, is the active prompt; nothing here needs a
-  local Postgres/pgpdump/cloudflared/Go toolchain). Install manually if a
-  given machine needs one. Note: removing `node` means Mason (used by the
-  nvim config) can't install its Node-based LSP servers — `ts_ls`, `eslint`,
-  `jsonls`, `dockerls` — until `node` is available some other way (e.g. via
-  `nvm`, which `.zshrc` already sources).
+  local Postgres/pgpdump/cloudflared/Go toolchain or locally-trusted dev
+  certs). Install manually if a given machine needs one. `node` stays in the
+  Brewfile despite being otherwise unused day-to-day, since Mason (used by
+  the nvim config) needs it to install its Node-based LSP servers —
+  `ts_ls`, `eslint`, `jsonls`, `dockerls`.
 - `~/.config/herdr/{*.log,*.sock,session.json}` — runtime logs, IPC sockets,
   and workspace/session state, all machine-local. Only `config.toml`
   (keybindings/theme) is portable config and gets symlinked.
