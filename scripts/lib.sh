@@ -14,6 +14,13 @@ os() {
   esac
 }
 
+# ~/.local/bin and ~/.dotnet hold tools installed outside Homebrew (herdr,
+# dotnet). A non-interactive script never sources .zshrc, so PATH has to be
+# fixed here too, not just in the symlinked dotfile — otherwise a step run
+# later in this same install.sh invocation won't see what an earlier step
+# just installed there.
+export PATH="$HOME/.local/bin:$HOME/.dotnet:$PATH"
+
 # Symlink src -> dest. No-op if already correctly linked. Backs up any
 # pre-existing real file/different link before replacing it.
 link() {
