@@ -23,11 +23,12 @@ what's missing and updates what's already there.
 
 - macOS or Linux. (Windows/WSL is untested — treat as Linux at your own risk.)
 
-No SSH key or GitHub auth needed to run `install.sh` — both this repo and
-`VismaSan/nvim` are public, so everything is cloned over plain HTTPS. (If
-either repo is ever made private again, switch the corresponding clone URL
-back to SSH — `git@github.com:VismaSan/nvim.git` in `scripts/07_nvim.sh` —
-and re-add this prerequisite.)
+`install.sh` clones `VismaSan/nvim` over plain HTTPS
+(`scripts/07_nvim.sh`), so no SSH key or GitHub auth is required to run it
+as configured today. If that repo's clone access ever changes such that
+HTTPS stops working, switch the URL there back to
+`git@github.com:VismaSan/nvim.git` and you'll need an SSH key registered
+with GitHub on the new machine before running `install.sh`.
 
 ## What gets set up
 
