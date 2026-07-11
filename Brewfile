@@ -18,7 +18,6 @@ brew "mkcert"
 brew "pgpdump"
 brew "postgresql@14"
 brew "starship"           # currently unreferenced in .zshrc; kept for parity, see README
-brew "supabase/tap/supabase"
 
 if OS.mac?
   brew "mono"
@@ -28,7 +27,7 @@ end
 
 if OS.linux?
   # dotnet SDK, gcloud CLI, and ngrok are installed via their own cross-platform
-  # vendor scripts (see scripts/06_nvim.sh and README) rather than here, since
+  # vendor scripts (see scripts/07_nvim.sh and README) rather than here, since
   # they either have no Linux cask equivalent or a better-maintained official
   # installer that already handles both OSes uniformly. There is no scripted
   # terminal-emulator install on Linux (iTerm2 is macOS-only and wasn't part of
