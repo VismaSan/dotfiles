@@ -1,0 +1,23 @@
+# Defensive net: this repo's install scripts never copy these paths in, but
+# this .gitignore exists as a second line of defense against a future
+# accidental `git add -A` inside ~/.claude-derived content.
+*.claude.json
+security/
+security_warnings_state_*
+session-env/
+history.jsonl
+sessions/
+projects/
+file-history/
+shell-snapshots/
+cache/
+chrome/
+tasks/
+telemetry/
+backups/
+.last-cleanup
+mcp-needs-auth-cache.json
+install-counts-cache.json
+
+# OS/editor cruft
+.DS_Store

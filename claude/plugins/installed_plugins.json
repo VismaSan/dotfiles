@@ -1,0 +1,165 @@
+{
+  "version": 2,
+  "plugins": {
+    "superpowers@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/superpowers/6.1.1",
+        "version": "6.1.1",
+        "installedAt": "2026-05-09T21:30:07.829Z",
+        "lastUpdated": "2026-07-05T23:08:31.149Z",
+        "gitCommitSha": "f2cbfbefebbfef77321e4c9abc9e949826bea9d7"
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.847Z",
+        "lastUpdated": "2026-07-11T17:46:01.767Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "skill-creator@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.868Z",
+        "lastUpdated": "2026-07-11T17:46:01.768Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/playwright/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.879Z",
+        "lastUpdated": "2026-07-11T17:46:01.771Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "feature-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/feature-dev/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.889Z",
+        "lastUpdated": "2026-07-11T17:46:01.769Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "ralph-loop@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/ralph-loop/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-09T21:30:07.903Z",
+        "lastUpdated": "2026-05-09T21:30:07.903Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "security-guidance@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/security-guidance/2.0.6",
+        "version": "2.0.6",
+        "installedAt": "2026-05-09T21:30:07.914Z",
+        "lastUpdated": "2026-07-05T23:08:28.387Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "commit-commands@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.924Z",
+        "lastUpdated": "2026-07-11T17:46:01.768Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "pr-review-toolkit@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/pr-review-toolkit/unknown",
+        "version": "unknown",
+        "installedAt": "2026-05-09T21:30:07.937Z",
+        "lastUpdated": "2026-07-11T17:46:01.769Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "chrome-devtools-mcp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/chrome-devtools-mcp/1.5.0",
+        "version": "1.5.0",
+        "installedAt": "2026-05-09T21:30:10.469Z",
+        "lastUpdated": "2026-07-05T23:08:44.611Z",
+        "gitCommitSha": "a1612be8e01401cf1711c64bc2ef5da5763ba956"
+      }
+    ],
+    "csharp-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/csharp-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-09T21:30:16.935Z",
+        "lastUpdated": "2026-05-09T21:30:16.935Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "coderabbit@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/coderabbit/1.1.1",
+        "version": "1.1.1",
+        "installedAt": "2026-05-09T21:30:18.374Z",
+        "lastUpdated": "2026-05-09T21:30:18.374Z",
+        "gitCommitSha": "a81eb76a1539e4a3f2b5c6fc133849124e72d303"
+      }
+    ],
+    "remember@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/remember/0.8.3",
+        "version": "0.8.3",
+        "installedAt": "2026-05-09T21:30:20.416Z",
+        "lastUpdated": "2026-07-05T23:08:32.412Z",
+        "gitCommitSha": "914445ac5f06a164800ea90ba4db41a0486321ae"
+      }
+    ],
+    "microsoft-docs@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/microsoft-docs/0.3.1",
+        "version": "0.3.1",
+        "installedAt": "2026-05-09T21:30:21.977Z",
+        "lastUpdated": "2026-05-09T21:30:21.977Z",
+        "gitCommitSha": "954c17e72d65b0ee1fc7009c10b8a57e6889d34a"
+      }
+    ],
+    "lua-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/lua-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-05-09T21:30:21.991Z",
+        "lastUpdated": "2026-05-09T21:30:21.991Z",
+        "gitCommitSha": "00679aef889efe36bb0389f81d70b6229a2013ee"
+      }
+    ],
+    "azure@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/dev/.claude/plugins/cache/claude-plugins-official/azure/1.1.75",
+        "version": "1.1.75",
+        "installedAt": "2026-05-09T21:30:23.941Z",
+        "lastUpdated": "2026-07-05T23:08:34.223Z",
+        "gitCommitSha": "ed25b85a13ec001c53f538b07e0bfbe732673885"
+      }
+    ]
+  }
+}
