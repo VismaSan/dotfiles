@@ -20,13 +20,13 @@ brew "postgresql@14"
 brew "starship"           # currently unreferenced in .zshrc; kept for parity, see README
 brew "supabase/tap/supabase"
 
-on_macos do
+if OS.mac?
   brew "mono"
   cask "font-hack-nerd-font"
   cask "iterm2"
 end
 
-on_linux do
+if OS.linux?
   # dotnet SDK, gcloud CLI, and ngrok are installed via their own cross-platform
   # vendor scripts (see scripts/06_nvim.sh and README) rather than here, since
   # they either have no Linux cask equivalent or a better-maintained official
