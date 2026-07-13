@@ -1,89 +1,100 @@
 #!/bin/sh
-# Claude Code status line
 input=$(cat)
 
-cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // ""')
-model=$(echo "$input" | jq -r '.model.display_name // ""')
+cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd // empty')
+model=$(echo "$input" | jq -r '.model.display_name // "Unknown Model"')
+worktree_name=$(echo "$input" | jq -r '.worktree.name // empty')
+worktree_branch=$(echo "$input" | jq -r '.worktree.branch // empty')
+total_input=$(echo "$input" | jq -r '.context_window.total_input_tokens // 0')
+total_output=$(echo "$input" | jq -r '.context_window.total_output_tokens // 0')
 used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
-five_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
-week_pct=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+cache_read=$(echo "$input" | jq -r '.context_window.current_usage.cache_read_input_tokens // 0')
+cache_creation=$(echo "$input" | jq -r '.context_window.current_usage.cache_creation_input_tokens // 0')
+current_input=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens // 0')
 
-# Shorten home directory to ~
-home="$HOME"
-short_cwd="${cwd/#$home/\~}"
+CYAN='\033[36m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+ORANGE='\033[38;5;208m'
+RED='\033[31m'
+RESET='\033[0m'
 
-# Git branch (skip optional locks for safety)
-branch_info=""
-if git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
-  branch=$(git -C "$cwd" -c gc.auto=0 symbolic-ref --short HEAD 2>/dev/null \
-           || git -C "$cwd" -c gc.auto=0 rev-parse --short HEAD 2>/dev/null)
-  if [ -n "$branch" ]; then
-    branch_info=" [${branch}]"
-  fi
+# cwd: show basename of directory
+dir_display=$(basename "$cwd")
+
+# git info: branch + status (staged/modified counts)
+git_branch=""
+git_status=""
+if cd "$cwd" 2>/dev/null && git -C "$cwd" rev-parse --git-dir > /dev/null 2>&1; then
+  git_branch=$(git -C "$cwd" branch --show-current 2>/dev/null)
+  [ -z "$git_branch" ] && git_branch=$(git -C "$cwd" rev-parse --abbrev-ref HEAD 2>/dev/null)
+  staged=$(git -C "$cwd" diff --cached --numstat 2>/dev/null | wc -l | tr -d ' ')
+  modified=$(git -C "$cwd" diff --numstat 2>/dev/null | wc -l | tr -d ' ')
+  untracked=$(git -C "$cwd" ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')
+  parts=""
+  [ "$staged" -gt 0 ]    && parts="${parts}$(printf "${GREEN}+${staged}${RESET} ")"
+  [ "$modified" -gt 0 ]  && parts="${parts}$(printf "${YELLOW}~${modified}${RESET} ")"
+  [ "$untracked" -gt 0 ] && parts="${parts}$(printf "?${untracked} ")"
+  git_status=$(printf "%s" "$parts" | sed 's/ $//')
 fi
 
-# Context used percentage with color: dimmed green below 45, dimmed orange at 45+
-ctx_colored=""
+# tokens used: sum of total input + output tokens
+tokens_total=$(( total_input + total_output ))
+if [ "$tokens_total" -ge 1000000 ]; then
+  tokens_str=$(awk "BEGIN { printf \"%.1fM\", $tokens_total / 1000000 }")
+elif [ "$tokens_total" -ge 1000 ]; then
+  tokens_str=$(awk "BEGIN { printf \"%.1fk\", $tokens_total / 1000 }")
+else
+  tokens_str="${tokens_total}"
+fi
+
+# used percentage
 if [ -n "$used" ]; then
-  pct=$(printf '%.0f' "$used")
-  if [ "$pct" -lt 45 ]; then
-    # Dimmed green
-    ctx_colored="\033[2;32m (${pct}%)\033[0m"
+  used_display=$(printf "%.0f" "$used")
+  used_str="${used_display}%"
+else
+  used_str="-%"
+fi
+
+# info color: green <41%, orange 41-55%, red >55%
+if [ -n "$used" ] && awk "BEGIN { exit !($used < 41) }"; then
+  info_color="$GREEN"
+elif [ -n "$used" ] && awk "BEGIN { exit !($used <= 55) }"; then
+  info_color="$ORANGE"
+else
+  info_color="$RED"
+fi
+
+# cache hit rate: cache_read / (cache_read + cache_creation + input_tokens) * 100
+total_input_tokens=$(( cache_read + cache_creation + current_input ))
+cache_hit_str="-"
+if [ "$total_input_tokens" -gt 0 ] && [ "$cache_read" -gt 0 ]; then
+  cache_hit_str=$(awk "BEGIN { printf \"%.0f%%\", ($cache_read / $total_input_tokens) * 100 }")
+elif [ "$total_input_tokens" -gt 0 ]; then
+  cache_hit_str="0%"
+fi
+
+# Build worktree section: shown right after the git branch when this session
+# is running inside a worktree (Claude Code populates .worktree.* on stdin).
+worktree_section=""
+if [ -n "$worktree_name" ]; then
+  if [ -n "$worktree_branch" ]; then
+    worktree_section=$(printf " ${ORANGE}[wt:%s@%s]${RESET}" "$worktree_name" "$worktree_branch")
   else
-    # Dimmed orange (color 214 is a standard orange in 256-color)
-    ctx_colored="\033[2;38;5;214m (${pct}%)\033[0m"
+    worktree_section=$(printf " ${ORANGE}[wt:%s]${RESET}" "$worktree_name")
   fi
 fi
 
-# Build a usage bar: filled blocks out of 10 total
-# arg1: used percentage (0-100), arg2: label
-make_bar() {
-  _pct="$1"
-  _label="$2"
-  _filled=$(( (_pct * 10 + 50) / 100 ))
-  [ "$_filled" -gt 10 ] && _filled=10
-  _empty=$(( 10 - _filled ))
-  _bar=""
-  _i=0
-  while [ "$_i" -lt "$_filled" ]; do
-    _bar="${_bar}█"
-    _i=$(( _i + 1 ))
-  done
-  _i=0
-  while [ "$_i" -lt "$_empty" ]; do
-    _bar="${_bar}░"
-    _i=$(( _i + 1 ))
-  done
-  # Color: green below 70%, orange 70-89%, red 90%+
-  if [ "$_pct" -lt 70 ]; then
-    printf "\033[2;32m%s %s %d%%\033[0m" "$_label" "$_bar" "$_pct"
-  elif [ "$_pct" -lt 90 ]; then
-    printf "\033[2;38;5;214m%s %s %d%%\033[0m" "$_label" "$_bar" "$_pct"
+# Build git section
+if [ -n "$git_branch" ]; then
+  if [ -n "$git_status" ]; then
+    git_section="${git_branch}${worktree_section} ${git_status}"
   else
-    printf "\033[2;31m%s %s %d%%\033[0m" "$_label" "$_bar" "$_pct"
+    git_section="${git_branch}${worktree_section}"
   fi
-}
-
-# Row 1: cwd [branch] | model (context%)
-printf "\033[34m%s\033[0m\033[2m%s\033[0m | %s%b" \
-  "$short_cwd" "$branch_info" "$model" "$ctx_colored"
-
-# Row 2: rate limit bars (only shown when data is available)
-row2=""
-if [ -n "$five_pct" ]; then
-  five_int=$(printf '%.0f' "$five_pct")
-  bar5=$(make_bar "$five_int" "5h")
-  row2="$bar5"
-fi
-if [ -n "$week_pct" ]; then
-  week_int=$(printf '%.0f' "$week_pct")
-  bar7=$(make_bar "$week_int" "7d")
-  if [ -n "$row2" ]; then
-    row2="${row2}  ${bar7}"
-  else
-    row2="$bar7"
-  fi
-fi
-if [ -n "$row2" ]; then
-  printf "\n%b" "$row2"
+  printf "${CYAN}%s${RESET} %s | %s ${info_color}(%s, %s)${RESET} | cache: %s\n" \
+    "$dir_display" "$git_section" "$model" "$tokens_str" "$used_str" "$cache_hit_str"
+else
+  printf "${CYAN}%s${RESET}%s | %s ${info_color}(%s, %s)${RESET} | cache: %s\n" \
+    "$dir_display" "$worktree_section" "$model" "$tokens_str" "$used_str" "$cache_hit_str"
 fi
