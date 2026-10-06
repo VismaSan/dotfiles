@@ -19,5 +19,10 @@ backups/
 mcp-needs-auth-cache.json
 install-counts-cache.json
 
+# claude.ai skills that Claude Code downloads (syncClaudeAiSkills) and its trash dir;
+# they land here because ~/.claude/skills symlinks to claude/skills
+/claude/skills/synced/
+/claude/skills/.trash/
+
 # OS/editor cruft
 .DS_Store
